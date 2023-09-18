@@ -518,7 +518,7 @@ header .showcase .container .showcaseimg {
   margin-right: 50%;
   margin-top: 20px;
 }
-.our-services .container .services-cards {
+.our-services .container .services-cards .umb-block-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 25px;
