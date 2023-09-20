@@ -1,0 +1,21 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+<section class="founder-and-about">
+    <div class="container">
+        <div class="founder">
+            <img src="@Model.Value("aboutCompanyEmployeeImage")">
+            <div class="founder-content">
+                <h6>@Model.Value("aboutCompanyEmployeeName"), <span class="small-founder">@Model.Value("aboutCompanyEmployeeTitle")</span></h6>
+                <p class="founder-text"><i>@Model.Value("aboutCompanyEmployeeComment")</i></p>
+            </div>
+        </div>
+        <div class="about">
+            <h5 class="small-heading">@Model.Value("aboutCompanyHeading")</h5>
+            <h1>@Model.Value("aboutCompanyTitle")</h1>
+            <p class="about-text">@Model.Value("aboutCompanyDescription")</p> 
+            <p class="about-text">@Model.Value("aboutCompanySecondDescription")</p>
+            <a class="btn-dark-theme" href="@Model.Value("aboutCompanyButtonUrl")">@Model.Value("aboutCompanyButtonText") <i class="fa-solid fa-arrow-up-right"></i></a>
+            <a class="btn-play" href=""><i class="play-btn fa-solid fa-play"></i><span> Intro Video</span></a>
+        </div>
+    </div>
+</section>

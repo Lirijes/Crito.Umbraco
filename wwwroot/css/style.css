@@ -664,16 +664,22 @@ header .showcase .container .showcaseimg {
 }
 
 .other-pages-showcase .container {
-  display: flex;
-  justify-content: center;
-  align-content: center;
   margin-top: 60px;
   padding-bottom: 60px;
 }
 .other-pages-showcase .container .news-content-column {
-  flex-direction: row;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
-.other-pages-showcase .container .news-content-column p {
+.other-pages-showcase .container .news-content-column a {
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+}
+.other-pages-showcase .container .news-content-column span {
+    font-weight: bold;
   font-size: 14px;
   display: flex;
   justify-content: center;
