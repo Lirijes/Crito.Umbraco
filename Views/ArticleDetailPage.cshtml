@@ -1,6 +1,68 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ArticleDetailPage>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Services;
+@inject IUserService UserService;
 @{
 	Layout = "LayoutWithBreadcrumb.cshtml";
 }
+
+   <section class="article-details">
+        <div class="container">
+            <h1>@Model.Name</h1>
+            <div class="article-header">
+                <p>Mars 25, 2023</p>
+                <div class="article-dot"></div>
+                <p>Business</p>
+                <div class="article-dot"></div>
+                <p>@Model.Value("creatorName")</p>
+            </div>
+            <div class="article-information">
+                <div class="article-info">
+                    <img src="images/content/linkedin-sales-solutions-Mis5fyJi7Q0-unsplash.jpg" alt="">
+                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.</p>
+                    <p>Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci. Aenean nec lorem. In porttitor. Donec laoreet nonummy augue. uspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna. unc viverra imperdiet enim. Fusce est. Vivamus a tellus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.</p>
+                    <p>Aenean nec lorem. In porttitor. Donec laoreet nonummy augue. Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.</p>
+                    <div class="quote"><i class="fa-solid fa-quote-right"></i><p class="quote-text"><i>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.</i></p></div>
+                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna. unc viverra imperdiet enim. Fusce est. Vivamus a tellus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                    <div class="article-tags">
+                        <a class="article-tag" href="#">Digitalization</a>
+                        <a class="article-tag" href="#">School</a>
+                        <a class="article-tag" href="#">IT</a>
+                        <a class="article-tag" href="#">Design</a>
+                        <a class="article-tag" href="#">Work</a>
+                        <a class="article-tag" href="#">Tech</a>
+                    </div>
+                </div>
+                <div class="find-articles">
+                    <div class="search-input-box">
+                        <div class="search-magnifying-glass">
+                            <span class="magnifying-glass"><i class="fa-solid fa-magnifying-glass"></i></span>
+                        </div>
+                        <input class="search-input" type="text" placeholder="Type to search">
+                    </div>
+                    <div class="recent-posts">
+                        <h4 class="find-articles-header">Recent Posts</h4>
+                        <h6>How To Blow Through Capital At An Incredible Rate</h6>
+                        <p>Jan 14, 2020</p>
+                        <h6>Design Studios That Everyone Should Know About?</h6>
+                        <p>Jan 14, 2020</p>
+                        <h6>How did we get 1M+ visitors in 30 days without anything!</h6>
+                        <p>Jan 14, 2020</p>
+                        <h6>Figma On Figma: How We Built Our Website Design System</h6>
+                        <p>Jan 14, 2020</p>
+                    </div>
+                    <div class="article-categories">
+                        <h4 class="find-articles-header">Categories</h4>
+                        <p>Technology <span>- 20 Posts</span></p>
+                        <p>Freekancing <span>- 07 Posts</span></p>
+                        <p>Writing <span>- 16 Posts</span></p>
+                        <p>Marketing <span>- 11 Posts</span></p>
+                        <p>Business <span>- 35 Posts</span></p>
+                        <p>Education <span>- 14 Posts</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

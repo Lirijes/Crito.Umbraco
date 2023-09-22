@@ -709,6 +709,21 @@ header .showcase .container .showcaseimg {
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
+.news-articles .container .item-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  margin-left: 155%;
+}
+.news-articles .container .item-pagination .item-link {
+  border: 1px solid #F0EFE9;
+  padding: 15px;
+  margin: 5px;
+  border-radius: 10px;
+}
+.news-articles .container .item-pagination .active {
+  background-color: #F0EFE9;
+}
 .news-articles .container .numbers {
   display: flex;
   justify-content: center;
