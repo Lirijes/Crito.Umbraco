@@ -3,36 +3,32 @@
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @using Umbraco.Cms.Core.Services;
 @inject IUserService UserService;
+@using Umbraco.Cms.Core.Models.PublishedContent;
 @{
 	Layout = "LayoutWithBreadcrumb.cshtml";
+	var userService = UserService;
+	var image = Model.Value<IPublishedContent>("newsImage");
 }
 
    <section class="article-details">
         <div class="container">
             <h1>@Model.Name</h1>
             <div class="article-header">
-                <p>Mars 25, 2023</p>
+                <p>@Model.CreateDate.ToString("MMM dd, yyyy")</p>
                 <div class="article-dot"></div>
-                <p>Business</p>
+                <p>@Model.Value("newsCategory")</p>
                 <div class="article-dot"></div>
-                <p>@Model.Value("creatorName")</p>
+                <p>@Model.CreatorName(UserService)</p>
             </div>
             <div class="article-information">
                 <div class="article-info">
-                    <img src="images/content/linkedin-sales-solutions-Mis5fyJi7Q0-unsplash.jpg" alt="">
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.</p>
-                    <p>Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci. Aenean nec lorem. In porttitor. Donec laoreet nonummy augue. uspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna. unc viverra imperdiet enim. Fusce est. Vivamus a tellus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.</p>
-                    <p>Aenean nec lorem. In porttitor. Donec laoreet nonummy augue. Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.</p>
-                    <div class="quote"><i class="fa-solid fa-quote-right"></i><p class="quote-text"><i>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.</i></p></div>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna. unc viverra imperdiet enim. Fusce est. Vivamus a tellus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                    <img class="article-image" src="@image.Url()" alt="">
+                    <p>@Model.Value("newsContent")</p>
                     <div class="article-tags">
-                        <a class="article-tag" href="#">Digitalization</a>
-                        <a class="article-tag" href="#">School</a>
-                        <a class="article-tag" href="#">IT</a>
-                        <a class="article-tag" href="#">Design</a>
-                        <a class="article-tag" href="#">Work</a>
-                        <a class="article-tag" href="#">Tech</a>
+                        @foreach(var tag in Model.Value<IEnumerable<string>>("newsTags")) 
+                        {
+                            <a class="article-tag" href="#">@tag</a>
+                        }
                     </div>
                 </div>
                 <div class="find-articles">

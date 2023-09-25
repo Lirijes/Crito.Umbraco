@@ -15,12 +15,12 @@
    <script src="https://kit.fontawesome.com/41c8b474e2.js" crossorigin="anonymous"></script>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
    <link href="/css/style.css" rel="stylesheet">
-<title>@ViewData ["title"].ToString() | = "Crito - Agency Services"</title>
+<title>@Model.Value("pageTitle") | Crito</title>
 </head>
 <body>
         
         <header>
-            <img class="background-lines" src="images/background-effects/background-lines.svg" alt="">
+            <img class="background-lines" src="/images/background-effects/background-lines.svg" alt="">
             @await Html.PartialAsync("_NavSection")
             @await Html.PartialAsync("_BreadcrumbSection")
         </header>
