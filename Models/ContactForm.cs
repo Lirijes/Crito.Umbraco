@@ -14,5 +14,5 @@ public class ContactForm
     [Required]
     public string Message { get; set; } = null!;
 
-    public string? RedirectUrl { get; set; } = "/contacts";
+    public string? RedirectUrl { get; set; } = "/";
 }
