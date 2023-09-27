@@ -7,7 +7,21 @@
 @{
 	Layout = "LayoutWithBreadcrumb.cshtml";
 	var userService = UserService;
-	var image = Model.Value<IPublishedContent>("newsImage");
+	var newsimage = Model.Value<IPublishedContent>("newsImage");
+	
+	var itemsPerPage = 3;
+	var pageNumber = 1;
+	
+	if(!int.TryParse(Context.Request.Query["page"], out pageNumber))
+	    pageNumber = 1;
+	
+	var selection = Umbraco?.Content(Guid.Parse("7048572f-b53f-4a98-a585-fafabcc2349e"))?
+        .ChildrenOfType("articleDetailPage")?
+        .Where(x => x.IsVisible())
+        .OrderByDescending(x => x.CreateDate).ToList();
+        
+    var totalItems = selection?.Count ?? 0;
+    var pagedItems = selection?.Skip((pageNumber - 1) * itemsPerPage).Take(itemsPerPage);
 }
 
    <section class="article-details">
@@ -22,7 +36,7 @@
             </div>
             <div class="article-information">
                 <div class="article-info">
-                    <img class="article-image" src="@image.Url()" alt="">
+                    <img class="article-image" src="@newsimage.Url()" alt="">
                     <p>@Model.Value("newsContent")</p>
                     <div class="article-tags">
                         @foreach(var tag in Model.Value<IEnumerable<string>>("newsTags")) 
@@ -62,3 +76,62 @@
             </div>
         </div>
     </section>
+    
+    <section class="article-news">
+    <div class="container">
+        <h5 class="small-heading">Article & News</h5>
+        <div class="news-header">
+            <h1>Get Every Single Articles & News</h1>
+            <a class="article-btn transparent-btn btn-theme" href="/news">Browse Articles<i class="fa-solid fa-arrow-up-right"></i></a>
+        </div>
+        <div class="article-news-cards">
+            
+        @if(pagedItems != null) 
+        {
+        	@foreach (var item in pagedItems!)
+    	    {
+        	    var url = item.Url();
+        	    var date = item.CreateDate;
+        	    var image = item.Value<IPublishedContent>("newsImage");
+        	    var category = item.Value("newsCategory");
+        	    var title = item.Name();
+        	    var peamble = item.Value("newsPreamble");
+        	
+            
+        	    <a class="article-card" href="@url">
+                    <div class="article-card-body">
+                        <img class="article-card-img" src="@image?.Url()" alt="">
+                        <div class="article-card-date">
+                            <h5>@date.ToString("dd")</h5>
+                            <p class="month">@date.ToString("MMM")</p>
+                        </div>
+                        <h5 class="article-card-category">@category</h5>
+                        <h2 class="article-card-header">@title</h2>
+                        <p class="article-card-text">@peamble</p>
+                    </div>
+                </a>
+        	}
+        }
+        </div>
+        
+        <div class="dots">
+            <nav aria-label="Page navigation">
+                @if (pageNumber > 1)
+                {
+                    <a href="?page=@(pageNumber - 1)" class="item-link link-prev" aria-label="Previous"></a>
+                }
+        
+                @for (int i = 1; i <= Math.Ceiling((decimal)totalItems / itemsPerPage); i++)
+                {
+                    <a href="?page=@i" class="item-link @(i == pageNumber ? "active" : "")"><span aria-hidden="true">&#8226;</span></a>
+                }
+            
+                @if (pageNumber < Math.Ceiling((decimal)totalItems / itemsPerPage))
+                {
+                    <a href="?page=@(pageNumber + 1)" class="item-link link-next" aria-label="Next"></a>
+                }
+            </nav>
+        </div>
+    </div>
+</section>
+

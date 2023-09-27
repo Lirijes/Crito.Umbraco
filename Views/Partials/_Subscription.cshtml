@@ -2,8 +2,8 @@
 
 
 <section class="subscribe-section">
-    <h1>Get News Updates By Signup</h1>
+    <h1>@Model.Value("subscriptionTitle")</h1>
     <input class="subscribe-input" type="text" placeholder="Username@domain.com">
-    <a class="btn-theme" href="">Subscribe <i class="fa-solid fa-arrow-up-right"></i></a>
+    <a class="btn-theme" href="@Model.Value("subscriptionButtonUrl")">@Model.Value("subscriptionButtonText") <i class="fa-solid fa-arrow-up-right"></i></a>
     <img class="background-wavy-lines" src="images/background-effects/background-wavy-lines.svg" alt="">
 </section>

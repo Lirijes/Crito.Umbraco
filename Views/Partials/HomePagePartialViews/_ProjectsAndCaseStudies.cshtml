@@ -1,0 +1,51 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.HomePage>
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.PublishedContent;
+@{
+	var itemsPerPage = 4;
+	var pageNumber = 1;
+	
+	if(!int.TryParse(Context.Request.Query["page"], out pageNumber))
+	    pageNumber = 1;
+	
+	var selection = Umbraco?.Content(Guid.Parse("7048572f-b53f-4a98-a585-fafabcc2349e"))?
+        .ChildrenOfType("articleDetailPage")?
+        .Where(x => x.IsVisible())
+        .OrderByDescending(x => x.CreateDate).ToList();
+        
+    var totalItems = selection?.Count ?? 0;
+    var pagedItems = selection?.Skip((pageNumber - 1) * itemsPerPage).Take(itemsPerPage);
+    
+}
+
+<section class="projects-section">
+    <div class="container">
+        <h5 class="small-heading">@Model.Value("projectsTitle")</h5>
+        <h1>@Model.Value("projectsHeading")</h1>
+        <div class="projects-articles">
+                
+            @if(pagedItems != null) 
+            {
+            	@foreach (var item in pagedItems!)
+        	    {
+            	    var url = item.Url();
+            	    var image = item.Value<IPublishedContent>("newsImage");
+            	    var title = item.Name();
+            	
+            	
+                    <div class="projects-card">
+                        <div class="project-card-body">
+                            <img class="projects-card-img" src="@image?.Url()" alt="">
+                            <h2 class="projects-card-header">@title</h2>
+                            <div class="projects-line"></div>
+                            <a href="@url" class="projects-readmore">Read More<i class="fa-solid fa-arrow-up-right"></i></a>
+                        </div>
+                    </div>
+            	}
+            }
+            
+        </div>
+        <a href="@Model.Value("projectsLink")" class="btn-dark-theme">All Recent Projects <i class="fa-solid fa-arrow-up-right"></i></a>
+    </div>
+</section>
