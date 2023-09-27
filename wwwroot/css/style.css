@@ -528,7 +528,58 @@ header .showcase .container .showcaseimg {
 .our-services .container .service-btn {
   margin-left: 45%;
 }
-
+.why-choose-us .container {
+  display: flex;
+  margin-top: 70px;
+  position: relative;
+}
+.why-choose-us .container .left-side {
+  width: 50%;
+}
+.why-choose-us .container .left-side h1 {
+  padding-top: 10px;
+  font-family: "DMSans", sans-serif;
+  font-weight: 700;
+  font-size: 45px;
+  margin-bottom: 30px;
+}
+.why-choose-us .container .left-side .choose-us-info {
+  display: flex;
+  margin-bottom: 10px;
+}
+.why-choose-us .container .left-side .choose-us-info .choose-us-icon {
+  border: 1px solid #F0EFE9;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 40px;
+  margin-right: 20px;
+}
+.why-choose-us .container .left-side .choose-us-info h6 {
+  font-size: 16px;
+  font-weight: 700;
+  font-family: "DMSans", sans-serif;
+}
+.why-choose-us .container .left-side .choose-us-info p {
+  font-size: 12px;
+  color: gray;
+}
+.why-choose-us .container .right-side .box-theme-color {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  background-color: #F0EFE9;
+  width: 630px;
+  height: 250px;
+}
+.why-choose-us .container .right-side img {
+  position: absolute;
+  bottom: 60px;
+  right: 80px;
+  height: 70%;
+}
 .article-news {
   margin-top: 70px;
   padding-bottom: 20px;
@@ -780,8 +831,8 @@ header .showcase .container .showcaseimg {
 .contact-section .container {
   background-color: #F0EFE9;
   padding: 100px;
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 .contact-section .container h1 {
@@ -792,26 +843,41 @@ header .showcase .container .showcaseimg {
   margin-right: 150px;
   margin-bottom: 20px;
 }
-.contact-section .container .contact-input {
-  margin-bottom: 20px;
-  border-radius: 20px;
-  border: 0;
-  padding-left: 20px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  font-size: 11px;
+.contact-section .container .contact-us-input {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
 }
-.contact-section .container .contact-textarea {
-  margin-bottom: 20px;
+.contact-section .container .contact-us-input .text-danger {
+  margin-left: 20px;
+  font-style: italic;
+  font-size: 12px;
+}
+.contact-section .container .contact-us-input .contact-input {
   border-radius: 20px;
   border: 0;
   padding-left: 20px;
   padding-top: 5px;
   padding-bottom: 5px;
   font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.contact-section .container .contact-us-input .contact-textarea {
+  border-radius: 20px;
+  border: 0;
+  padding-left: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 .contact-section .container .contact-btn {
   border: none;
+  margin-top: 30px;
 }
 
 .map-section {
