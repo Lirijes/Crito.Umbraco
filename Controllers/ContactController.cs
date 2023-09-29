@@ -13,30 +13,55 @@ namespace Crito.Controllers
 {
     public class ContactController : SurfaceController
     {
-        public ContactController(IUmbracoContextAccessor umbracoContextAccessor, IUmbracoDatabaseFactory databaseFactory, ServiceContext services, AppCaches appCaches, IProfilingLogger profilingLogger, IPublishedUrlProvider publishedUrlProvider) : base(umbracoContextAccessor, databaseFactory, services, appCaches, profilingLogger, publishedUrlProvider)
+        private readonly MailService _mailService;
+        private readonly SubscribeService _subscribeService;
+        public ContactController(IUmbracoContextAccessor umbracoContextAccessor, IUmbracoDatabaseFactory databaseFactory, ServiceContext services, AppCaches appCaches, IProfilingLogger profilingLogger, IPublishedUrlProvider publishedUrlProvider, MailService mailService, SubscribeService subscribeService) : base(umbracoContextAccessor, databaseFactory, services, appCaches, profilingLogger, publishedUrlProvider)
         {
+            _mailService = mailService;
+            _subscribeService = subscribeService;
         }
 
         [HttpPost]
-        public IActionResult Index(ContactForm contactForm)
+        public async Task<IActionResult> Index(ContactForm contactform)
         {
             if (!ModelState.IsValid)
+            {
+                await _mailService.AddMailAsync(contactform);
                 return CurrentUmbracoPage();
-
-
-            //bytas ut mot att sparas i en databas
-
+            }
 
             using var mail = new MailService("no-reply@crito.com", "smtp.crito.com", 587, "contactform@umbraco.com", "Hejhej123.");
 
             // to sender
-            mail.SendAsync(contactForm.Email, "Your contact request was received.", "Hi your request was received and we will be in contact with you as soon as possible.").ConfigureAwait(false);
+            mail.SendAsync(contactform.Email, "Your contact request was received.", "Hi your request was received and we will be in contact with you as soon as possible.").ConfigureAwait(false);
 
             // to receiver
-            mail.SendAsync("umbraco@crito.com", $"{contactForm.Name} sent a contact request.", contactForm.Message).ConfigureAwait(false);
+            mail.SendAsync("umbraco@crito.com", $"{contactform.Name} sent a contact request.", contactform.Message).ConfigureAwait(false);
 
 
-            return LocalRedirect(contactForm.RedirectUrl ?? "/");
+            return LocalRedirect(contactform.RedirectUrl ?? "/");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> SubscribeIndex(NewsletterForm newsletterform)
+        {
+            if (!ModelState.IsValid)
+            {
+                await _subscribeService.AddSubscriberAsync(newsletterform);
+                return CurrentUmbracoPage();
+            }
+
+            return RedirectToCurrentUmbracoPage();
+        }
+
+        //public async Task<IActionResult> RegisterMail(ContactForm contactform)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        await _mailService.AddMailAsync(contactform);
+        //        return CurrentUmbracoPage();
+        //    }
+        //    return RedirectToCurrentUmbracoPage();
+        //}
     }
 }

@@ -4,6 +4,7 @@ namespace Crito.Models.Entity
 {
     public class ContactFormEntity
     {
+        [Key]
         public int Id { get; set; }
 
         [Required]

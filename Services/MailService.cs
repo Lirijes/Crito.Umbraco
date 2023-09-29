@@ -3,6 +3,9 @@ using MimeKit;
 using MimeKit.Text;
 using MailKit.Net.Smtp;
 using System.Diagnostics;
+using Crito.Contexts;
+using Crito.Models.Entity;
+using Crito.Models;
 
 namespace Crito.Services;
 
@@ -14,6 +17,13 @@ public class MailService : IDisposable
     private string _username;
     private string _password;
     private MailKit.Net.Smtp.SmtpClient _client;
+    private readonly DatabaseContext _databaseContext;
+
+    public MailService(DatabaseContext databaseContext)
+    {
+        _databaseContext = databaseContext;
+        _client = new MailKit.Net.Smtp.SmtpClient();
+    }
 
     public MailService(string from, string smtp, int port, string username, string password)
     {
@@ -24,6 +34,27 @@ public class MailService : IDisposable
         _password = password;
 
         _client = new MailKit.Net.Smtp.SmtpClient();
+    }
+
+    public async Task<ContactFormEntity> CreateMailAsync(ContactFormEntity contactformentity)
+    {
+        _databaseContext.Set<ContactFormEntity>().Add(contactformentity);
+        await _databaseContext.SaveChangesAsync();
+        return contactformentity;
+    }
+
+    public async Task AddMailAsync(ContactForm contactform)
+    {
+        var entity = new ContactFormEntity()
+        {
+            Id = contactform.Id,
+            Name = contactform.Name,
+            Email = contactform.Email,
+            Message = contactform.Message
+        };
+
+        _databaseContext.ContactForms.Add(entity);
+        await _databaseContext.SaveChangesAsync();
     }
 
     public async Task SendAsync(string to, string subject, string body)
