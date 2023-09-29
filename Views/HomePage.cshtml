@@ -1,11 +1,17 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.HomePage>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models
 @{
 	Layout = "_Layout.cshtml";
 	ViewData["PageTitle"] = @Model.Value("pageTitle");
 	ViewData["PageDescription"] = @Model.Value("pageDescription");
 } 
+
+@{
+    var whyChooseUsImg = Model.Value<MediaWithCrops>("whyChooseUsSectionImage");
+}
+
 
 <!-- header -->
 <header>
@@ -47,7 +53,7 @@
             </div>
             <div class="right-side">
                 <div class="box-theme-color"></div>
-                <img src="@Model.Value("whyChooseUsSectionImage")" alt="">
+                <img src="@whyChooseUsImg.MediaUrl()" alt="">
             </div>
         </div>
     </section>

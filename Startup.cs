@@ -1,3 +1,6 @@
+//using Crito.Contexts;
+using Microsoft.EntityFrameworkCore;
+
 namespace Crito
 {
     public class Startup
@@ -29,6 +32,7 @@ namespace Crito
         /// </remarks>
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddDbContext<DataContext>(x => x.UseSqlite(_config.GetConnectionString("umbracoDbDSN")));
             services.AddUmbraco(_env, _config)
                 .AddBackOffice()
                 .AddWebsite()
