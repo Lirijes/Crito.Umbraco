@@ -24,7 +24,7 @@ namespace Crito.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(ContactForm contactform)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 await _mailService.AddMailAsync(contactform);
                 return CurrentUmbracoPage();
@@ -45,7 +45,7 @@ namespace Crito.Controllers
         [HttpPost]
         public async Task<IActionResult> SubscribeIndex(NewsletterForm newsletterform)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 await _subscribeService.AddSubscriberAsync(newsletterform);
                 return CurrentUmbracoPage();
@@ -53,15 +53,5 @@ namespace Crito.Controllers
 
             return RedirectToCurrentUmbracoPage();
         }
-
-        //public async Task<IActionResult> RegisterMail(ContactForm contactform)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        await _mailService.AddMailAsync(contactform);
-        //        return CurrentUmbracoPage();
-        //    }
-        //    return RedirectToCurrentUmbracoPage();
-        //}
     }
 }

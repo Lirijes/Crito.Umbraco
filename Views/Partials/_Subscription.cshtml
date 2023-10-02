@@ -7,14 +7,14 @@
 <section class="subscribe-section">
     <h1>@Model.Value("subscriptionTitle")</h1>
 
-    @using (Html.BeginUmbracoForm("SubscribeIndex", "HomePage", FormMethod.Post))
+    @using (Html.BeginUmbracoForm("SubscribeIndex", "Contact", FormMethod.Post))
     {
-        <div asp-validation-summary="All"></div>
+        <div asp-validation-summary="ModelOnly"></div>
 
-        <input asp-for="@newsletterForm.Email" id="email-input" type="text" class="subscribe-input" type="text" placeholder="Username@domain.com">
+        <input asp-for="@newsletterForm.Email" id="email-input" type="text" class="subscribe-input" placeholder="Username@domain.com">
         <small class="text-danger"><span asp-validation-for="@newsletterForm.Email"></span></small>
 
-        <a class="btn-theme" href="@Model.Value("subscriptionButtonUrl")">@Model.Value("subscriptionButtonText") <i class="fa-solid fa-arrow-up-right"></i></a>
+        <button class="btn-theme" type="submit" href="@Model.Value("subscriptionButtonUrl")">@Model.Value("subscriptionButtonText") <i class="fa-solid fa-arrow-up-right"></i></button>
     }
     <img class="background-wavy-lines" src="images/background-effects/background-wavy-lines.svg" alt="">
 </section>

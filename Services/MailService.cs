@@ -47,7 +47,7 @@ public class MailService : IDisposable
     {
         var entity = new ContactFormEntity()
         {
-            Id = contactform.Id,
+            Id = Guid.NewGuid(),
             Name = contactform.Name,
             Email = contactform.Email,
             Message = contactform.Message
