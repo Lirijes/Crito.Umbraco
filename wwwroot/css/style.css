@@ -5,6 +5,15 @@ html, body {
   font-weight: 400;
 }
 
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
 .small-heading {
   color: #F94D1C;
   font-size: 18px;
@@ -1160,6 +1169,7 @@ header .showcase .container .showcaseimg {
   font-weight: 700;
   font-size: 20px;
 }
+
 .article-details .container .article-information .find-articles .recent-posts h6 {
   font-family: "DMSans", sans-serif;
   font-weight: 700;
@@ -1180,13 +1190,16 @@ header .showcase .container .showcaseimg {
   font-weight: 700;
   font-size: 20px;
 }
-.article-details .container .article-information .find-articles .article-categories p {
+.article-details .container .article-information .find-articles .article-categories .categories-list {
+  margin: 0px;
+}
+.article-details .container .article-information .find-articles .article-categories .categories-list p {
   font-family: "DMSans", sans-serif;
   font-weight: 700;
   font-size: 12px;
   margin-bottom: 15px;
 }
-.article-details .container .article-information .find-articles .article-categories p span {
+.article-details .container .article-information .find-articles .article-categories .categories-list p span {
   font-family: "DMSans", sans-serif;
   font-weight: 400;
   font-size: 11px;

@@ -10,6 +10,7 @@
 	var newsimage = Model.Value<IPublishedContent>("newsImage");
 	
 	var itemsPerPage = 3;
+	var recentPostPerPage = 5;
 	var pageNumber = 1;
 	
 	if(!int.TryParse(Context.Request.Query["page"], out pageNumber))
@@ -22,6 +23,7 @@
         
     var totalItems = selection?.Count ?? 0;
     var pagedItems = selection?.Skip((pageNumber - 1) * itemsPerPage).Take(itemsPerPage);
+    var pagedArticles = selection?.Skip((pageNumber - 1) * recentPostPerPage).Take(recentPostPerPage);
 }
 
    <section class="article-details">
@@ -54,23 +56,41 @@
                     </div>
                     <div class="recent-posts">
                         <h4 class="find-articles-header">Recent Posts</h4>
-                        <h6>How To Blow Through Capital At An Incredible Rate</h6>
-                        <p>Jan 14, 2020</p>
-                        <h6>Design Studios That Everyone Should Know About?</h6>
-                        <p>Jan 14, 2020</p>
-                        <h6>How did we get 1M+ visitors in 30 days without anything!</h6>
-                        <p>Jan 14, 2020</p>
-                        <h6>Figma On Figma: How We Built Our Website Design System</h6>
-                        <p>Jan 14, 2020</p>
+                        @if(pagedArticles != null) 
+                        {
+                        	@foreach (var item in pagedArticles!)
+                    	    {
+                        	    var url = item.Url();
+                        	    var date = item.CreateDate;
+                        	    var title = item.Name();
+                        	    
+                    	        <a href="@Url.Content(url)"><h6>@title</h6></a>
+                    	        <p>@date.ToString("dd, MMM")</p>
+                        	}
+                        }
                     </div>
                     <div class="article-categories">
                         <h4 class="find-articles-header">Categories</h4>
-                        <p>Technology <span>- 20 Posts</span></p>
-                        <p>Freekancing <span>- 07 Posts</span></p>
-                        <p>Writing <span>- 16 Posts</span></p>
-                        <p>Marketing <span>- 11 Posts</span></p>
-                        <p>Business <span>- 35 Posts</span></p>
-                        <p>Education <span>- 14 Posts</span></p>
+                        @{
+                            //den listar ej alla categorier eller posts
+                            var groupedByCategory = pagedItems
+                            .GroupBy(x => x.Value<string>("newsCategory"))
+                            .Select(group => new
+                            {
+                                Category = group.Key,
+                                Count = group.Count()
+                            })
+                            .ToList();
+                        }
+                        
+                        <ul>
+                            @foreach (var category in groupedByCategory)
+                            {
+                                <li>
+                                    <a class="categories-list" href="?category=@category.Category"><p>@category.Category<span> - @category.Count Posts</span></p></a>
+                                </li>
+                            }
+                        </ul>
                     </div>
                 </div>
             </div>
